@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="section-news">
+        <div class="row">
+            <div class="col-md-12 col-lg-5">
+                <h4 class="heading-secondary u-margin-top-medium u-margin-bottom-medium">
+                    {{ page.title }}
+                </h4>
+            </div>
+        </div>
+        <button class="scroll-to-top"><img src="{{ asset('images/arrows/arrow.btnTop.svg') }}" alt=""></button>
+
+        <div class="ror-block">
+            {% for chiefOrPartner in page.chiefOrPartner %}
+                <div class="leads-card">
+                    <div class="row">
+                        <div class="col-sm-4 ">
+                            <div class="leads-card__avatar"
+                                 style="background-image: url({{ vich_uploader_asset(chiefOrPartner, 'imageFile') }})"></div>
+                        </div>
+                        <div class="col-sm-8 ">
+                            <div class="leads-card__desc">
+                                <div class="leads-card__desc--name">{{ chiefOrPartner.fullName }}</div>
+                                <div class="leads-card__desc--position">{{ chiefOrPartner.description | raw }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

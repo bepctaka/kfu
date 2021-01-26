@@ -1,0 +1,4 @@
+{% for locale in locales %}
+    <a href="{{ path(route, params|merge({ _locale: locale })) }}"
+       class="languages__button {% if locale == app.request.locale %} languages__button--active {% endif %}languages__button--{{ locale }}"></a>
+{% endfor %}

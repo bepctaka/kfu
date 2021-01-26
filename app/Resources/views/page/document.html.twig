@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="section-news">
+        <div class="row">
+            <div class="col-md-12 col-lg-5">
+                <h4 class="heading-secondary u-margin-top-medium u-margin-bottom-medium">
+                    {{ page.title }}
+                </h4>
+            </div>
+        </div>
+        <button class="scroll-to-top"><img src="{{ asset('images/arrows/arrow.btnTop.svg') }}" alt=""></button>
+        <div class="ror-block">
+            {% for document in documents %}
+                <div class="leads-card">
+                    <div class="row" style="min-height: 150px; background-color: #f8f9fa; !important;">
+                        <div class="col-sm-10 ">
+                            <div class="leads-card__desc">
+                                <div class="leads-card__desc--name">{{ document.title }} </div>
+                                <div class="leads-card__desc--position"><a style="color: #d70f15; text-decoration: underline; !important;" href="{{ vich_uploader_asset(document, 'imageFile') }}"> открыть </a> </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 ">
+                            <div class="leads-card__avatar"
+                                 style="background-image:
+
+                                         url(/images/icon/{{ document.type }}.png);
+                                         height: calc(100% - 40px);
+                                         margin: 10px;
+                                         min-height: calc(100% - 20px);
+                                         background-color: #f8f9fa;
+                                         !important;"></div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

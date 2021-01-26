@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="gallery">
+        <div class="container">
+            <!-- Album -->
+            {% for gallery in galleries %}
+                <div class="album">
+                    <div class="album__title">
+                        <h4>  {{ gallery.title }}</h4>
+                    </div>
+
+                    <!-- Images -->
+                    <div class="images">
+                        <!-- Item -->
+                        {% for image in gallery.images %}
+                            <a
+                                    data-fancybox="gallery" href="{{ vich_uploader_asset(image, 'imageFile')| imagine_filter('gallery') }}"
+                                    class="images__item">
+                                <img src="{{ vich_uploader_asset(image, 'imageFile')| imagine_filter('news_thumb') }}" alt=""/>
+                            </a>
+                        {% endfor %}
+                        <!-- /Item -->
+                    </div>
+                    <!-- /Images -->
+                </div>
+            {% endfor %}
+            <!-- /Almub -->
+        </div>
+    </section>
+{% endblock %}

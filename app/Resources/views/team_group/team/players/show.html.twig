@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main id="main">
+        <div class="container">
+            <section class="section-news">
+                <!--не обращать внимание на имя класса-->
+                <div class="row">
+                    <div class="col-md-12 col-lg-2">
+                        <h4 style="width: 280px;" class="heading-secondary u-margin-top-medium u-margin-bottom-medium">
+                            {{ player.fullName }}
+                        </h4>
+                    </div>
+                </div>
+                <div class="player-maxinfo">
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-12">
+                            <div class="personal-info">
+                                <div  class=" personal-info__img">
+                                    <img src="{% if vich_uploader_asset(player, 'imageFile') != null  %} {{ vich_uploader_asset(player, 'imageFile') }} {% else %} https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png {% endif %}"  alt="">
+                                </div>
+                                <div class="personal-info__fullname">
+                                    {{ player.fullName }}
+                                </div>
+                                <div class="personal-info-descr">
+                                    <div class="personal-info__descr-box">
+                                        <div>{% trans %} Родился {% endtrans %} </div>
+                                        <div>{{ player.birthday|date('d.m.Y')  }}</div>
+                                    </div>
+                                    <div class="personal-info__descr-box">
+                                        <div>{% trans %} Дебют {% endtrans %}</div>
+                                        <div>{{ player.debut|date('d.m.Y') }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-12">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="heading-gray">
+                                        <h4 class="heading-gray">{% trans %} Сводная статистика {% endtrans %}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="scroll-table">
+                                <div class="summary-statistics">
+                                    <div class="summary-statistics__box" style="width: 49%; !important;">
+                                        <div class="summary-statistics__key">{% trans %} Игры {% endtrans %}</div>
+                                        <div class="summary-statistics__value">{{ player.amountGames }}</div>
+                                    </div>
+                                    <div class="summary-statistics__box" style="width: 49%; !important;">
+                                        <div class="summary-statistics__key">{% trans %} Голы {% endtrans %}</div>
+                                        <div class="summary-statistics__value">{{ player.amountGoals }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="full-news__descr">
+                                {{ player.biography }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+{% endblock %}

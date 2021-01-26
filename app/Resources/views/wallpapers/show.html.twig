@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main id="main">
+        <div class="container">
+            <section class="section-news">
+                <div class="row">
+                    <div class="col-md-12 col-lg-2">
+                        <h4 class="heading-secondary u-margin-top-medium u-margin-bottom-medium">
+                            ОБОИ
+                        </h4>
+                    </div>
+                </div>
+                <button class="scroll-to-top"><img src="{{ asset('images/arrows/arrow.btnTop.svg') }}" alt=""></button>
+                <div class="ror-block">
+                    <div class="row">
+                        {% for wallpaper in wallpapers %}
+                        <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12">
+                            <div class="ror-box" style="height: 180px">
+                                <div class="ror-img" style="background-image: url({{ vich_uploader_asset(wallpaper, 'imageFile') }})"></div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+{% endblock %}

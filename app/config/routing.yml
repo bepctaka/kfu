@@ -1,0 +1,35 @@
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+admin_area:
+    resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
+    prefix: /admin
+
+sonata_admin:
+    resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
+    type: sonata_admin
+    prefix: /admin
+
+main_page:
+    path: /{_locale}
+    defaults:
+        _controller: AppBundle:Home:index
+        _locale: ru
+
+login:
+    path:     /{_locale}/login
+    defaults: { _controller: AppBundle:Security:login }
+
+logout:
+    path: /logout
+
+api_login_check:
+    path: /api/login_check
+
+sonata_translation:
+    resource: '@SonataTranslationBundle/Resources/config/routes.yaml'
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.yaml"
+

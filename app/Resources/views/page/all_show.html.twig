@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="section-news">
+        <div class="row">
+            <div class="col-md-12 col-lg-2">
+                <h4 class="heading-secondary u-margin-top-medium u-margin-bottom-medium">
+                    {{ title }}
+                </h4>
+            </div>
+        </div>
+
+        <input type="hidden" class="creatSummary" data-path="{{ path('creatSummary') }}">
+        <button class="scroll-to-top"><img src="{{ 'images/arrows/arrow.btnTop.svg' }}" alt=""></button>
+        <div class="ror-block">
+            <div class="row">
+                {% for page in items %}
+                    <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12">
+                        <div class="ror-box">
+                            <div class="ror-img"
+                                 style="background-image: url({{ vich_uploader_asset(page, 'imageFile') }})">
+                                <div class="ror-more" id="more">
+                                    <a href="{{ path('showPage', {'slug': page.slug}) }}" data-slug="{{ page.slug }}"
+                                       class="read {% if page is instanceof('\\AppBundle\\Entity\\Page\\Vacancy') %} vacancy_link {% endif %}">
+                                        Подробнее
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ror-title heading-section-title">
+                                <a href="{{ path('showPage', {'slug': page.slug}) }}"
+                                   data-slug="{{ page.slug }}" {% if page is instanceof('\\AppBundle\\Entity\\Page\\Vacancy') %} class="vacancy_link" {% endif %}>{{ page.title }}</a>
+                            </div>
+                            <div class="ror-descr heading-text">
+                                {{ page.description|truncate(20, true) }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('mine_js/vacancy.js') }}"></script>
+{% endblock %}

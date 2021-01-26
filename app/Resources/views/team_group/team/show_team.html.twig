@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <input type="hidden" class="get_coaches" data-path="{{ path('getCoaches', {'teamId': team.id} ) }}">
+    <section class="section-news"> <!--не обращать внимание на имя класса-->
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <h4 class="heading-secondary u-margin-top-medium u-margin-bottom-medium">
+                    {{ team.title }}
+                </h4>
+            </div>
+        </div>
+        <button class="scroll-to-top"><img src="{{ asset('images/arrows/arrow.btnTop.svg') }}" alt=""></button>
+        <div class="teams-box">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="team-img"><img src="{{ vich_uploader_asset(team, 'logoFile') }}" alt=""></div>
+                </div>
+                <div class="col-lg-5 col-md-6">
+                    <div class="team-name">{{ team.title }}</div>
+                    {#                    <div class="team-site">Сайт: <a href="https://fc-arsenal.com/">https://fc-arsenal.com/</a></div>#}
+                    {#                    <div class="team-organization">Организация: <a href="#">Arsenal</a></div>#}
+                    <div class="team-descr">
+                        {{ team.description | raw }}
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="team-photo">
+                        <img src="{{ vich_uploader_asset(team, 'imageFile') }}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="command-sections">
+                <div class="u-active command-sections__section">
+                    <a href="{{ path('getCoaches', {'teamId': team.id} ) }}"
+                       style="color: white;">{% trans %}Тренерский штаб{% endtrans %}</a>
+                </div>
+                <div class="command-sections__section">
+                    <a href="{{ path('getPlayers', {'teamId': team.id} ) }}"
+                       class="team_list">{% trans %}Состав команды{% endtrans %}</a>
+                </div>
+            </div>
+            <div class="dynamic-content"></div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('mine_js/team.js') }}"></script>
+{% endblock %}

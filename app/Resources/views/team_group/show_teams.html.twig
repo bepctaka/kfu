@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="section-news">
+        <div class="row">
+            <div class="theme-title">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-lg-2">
+                    <h4 class="heading-secondary u-margin-top-medium u-margin-bottom-medium">
+                        {{ title }}
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <button class="scroll-to-top"><img src="{{ asset('images/arrows/arrow.btnTop.svg') }}" alt=""></button>
+        <div class="teams-box">
+            <div class="row">
+                {% for team in teamGroup.teams %}
+                    <div class="col-xl-6 col-lg-6 col-md-6">
+                        <div class="team-all__info">
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-12">
+                                    <a href="{{ path('showTeam', {'slug': team.slug}) }}">
+                                        <div class="team-info__img">
+                                            <img src=" {{ vich_uploader_asset(team, 'logoFile') }}" alt="">
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="team-games-info">
+                                        <div class="team-info__name"><a
+                                                    href="{{ path('showTeam', {'slug': team.slug}) }}">{{ team.title }}</a>
+                                        </div>
+                                        <div class="team-info__set-score">
+                                            <div class="set-score__games">
+                                                {#<div class="u-bg-smoke-black">Игр</div>#}
+                                                {#<div class="u-bg-black">Побед</div>#}
+                                                {#<div class="u-bg-smoke-black">Ничьих</div>#}
+                                                {#<div class="u-bg-black">Поражений</div>#}
+                                            </div>
+                                            <div class="set-score__score">
+                                                {#<div class="u-bg-">{{ team.amountGames }}</div>#}
+                                                {#<div class="u-bg-smoke-black">{{ team.amountWins }}</div>#}
+                                                {#<div class="u-bg-">{{ team.amountDrawn }}</div>#}
+                                                {#<div class="u-bg-smoke-black">{{ team.amountLesions }}</div>#}
+                                            </div>
+                                        </div>
+                                        <div class="team-info__score"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

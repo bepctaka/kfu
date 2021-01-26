@@ -1,0 +1,28 @@
+<div class="position-filter">
+    <div class="u-active position-filter__section">
+        <a href="{{ path('getPlayers', {'teamId': teamId} ) }}" style="color: white;">{% trans %}Все игроки{% endtrans %}</a>
+        <img src="{{ asset('images/arrows/filter-arrow-down.svg') }}" alt="">
+    </div>
+    {% for position in positions %}
+    <div class="position-filter__section">
+        <a href="{{ path('getPlayers', {'teamId': teamId, 'positionId': position.id} ) }}">{{ position.name }}</a>
+    </div>
+    {% endfor %}
+</div>
+<div class="all-players">
+    <div class="row">
+        {% for player in players %}
+        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6">
+            <div class="player-brief__info">
+                <a href="{{ path('showPlayer', {id: player.id}) }}" class="player-photo">
+                    <img src="{{ vich_uploader_asset(player, 'imageFile') }}" alt=""></a>
+                <div class="name-player"><a href="{{ path('showPlayer', {id: player.id}) }}">{{ player.fullName }}</a></div>
+                <div class="player-score">
+                    <div class="player-goal"><img src="{{ asset('images/icon/goal-1.svg') }}" alt="">{{ player.amountGames }}</div>
+                    <div class="player-goal"><img src="{{ asset('images/icon/goal-2.svg') }}" alt="">{{ player.amountGoals }}</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

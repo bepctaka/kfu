@@ -1,0 +1,13 @@
+
+<div class="coaching-staff">
+    <div class="row">
+            {% for coach in coaches %}
+                <div class="col-lg-3 col-md-6" style="flex: {% if coaches|length > 2 %} 0 {% else %} 1 {% endif %} 0 25%; max-width: 100%; !important;">
+                    <a  href="{{ path('showCoach', {id: coach.id}) }}">
+                        <img  src="{% if vich_uploader_asset(coach, 'imageFile') != null  %} {{ vich_uploader_asset(coach, 'imageFile') }} {% else %} https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png {% endif %}" alt=""></a>
+                    <div class="name-player"><a href="{{ path('showCoach', {id: coach.id}) }}">{{ coach.fullName }}</a></div>
+                </div>
+            {% endfor %}
+
+    </div>
+</div>

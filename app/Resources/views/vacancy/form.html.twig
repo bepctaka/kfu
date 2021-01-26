@@ -1,0 +1,59 @@
+<div class="popup-jobs__content ">
+    <div class="content-top">
+        <div class="heading-secondary">
+            Вакансия
+        </div>
+        <a class="close">&times;</a>
+    </div>
+    <div class="content-content">
+        <div style="background-image: url({{ vich_uploader_asset(vacancy, 'imageFile') }});" class="jobs-img">
+        </div>
+        <div class="jobs-discr">
+            <div class="title-jobs__popup heading-tertiary">
+                {{ vacancy.title }}
+            </div>
+            <div class="descr-jobs__popup heading-text">
+                {{ vacancy.description }}
+            </div>
+        </div>
+        <div class="jobs-requir">
+            <div class="requir-title">
+                Требования
+            </div>
+            <div class="requir">
+                <div>Опыт:  {{ vacancy.experience }}</div>
+                <div>Навык: {{ vacancy.skill }}</div>
+                <div>Тип: {{ vacancy.type }}</div>
+                <div>Возраст: {{ vacancy.age }}</div>
+                <div>Команды: {{ vacancy.team }}</div>
+                <div>Языки: {{ vacancy.language }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="content-send">
+        <div class="send-title">
+            Отправка резюме:
+        </div>
+        <div class="send-content">
+            <form action="{{ path('creatSummary') }}" id="creatSummary" class="send-form">
+                <input type="hidden" name="slug" value="{{ vacancy.slug }}">
+                <div class="send-left">
+                    <div class="send-input">
+                        <input type="text" name="name" placeholder="Имя">
+                        <input type="text" name="surname" placeholder="Фамилие">
+                        <input type="text" name=city placeholder="Город">
+                        <input type="text" name="experience" placeholder="Стаж">
+                        <input type="text" id="inputPhone" name="phone" placeholder="Телефон">
+                        <input type="text" name="email" placeholder="Почта">
+                    </div>
+                    <div class="send-submit">
+                        <input type="submit" class="send-submit" value="ОТПРАВИТЬ">
+                    </div>
+                </div>
+                <div class="send-right">
+                    <textarea  name="message" placeholder="Сообщение..."></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

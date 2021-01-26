@@ -1,0 +1,77 @@
+
+
+{{ include('layouts/mobile_navigation.html.twig') }}
+
+<div class="popup-jobs" id="popup-jobs"></div>
+<header id="header" class="header">
+    <div class="header-fixed-nav">
+        <div class="container">
+            <!-- Навигация полный box -->
+            <nav class="navigation">
+                <div class="row">
+                    <!-- Лого + навигация по сайту -->
+                    {{ include('layouts/navigation.html.twig') }}
+                    <!-- Логин юзера и поиск -->
+                    <div class="col-xl-1 col-lg-1">
+                        <div class="search-form" data-path="{{ path('searchPage') }}">
+                            <input class="search-input" name="string" placeholder="Search">
+                        </div>
+                    </div>
+                    <div class="col-xl-1 col-lg-1">
+                        <div class="languages">
+                            {% include('switch_locales/switch_locales.html.twig') %}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Карусель новостей в шапке -->
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            {% if sliders %}
+                {% for slider in sliders %}
+                    {% if loop.first %} {% set first = true %} {% else %} {% set first = false %} {% endif %}
+                    {% for image in  slider.images %}
+                        <div class="carousel-item {% if first and loop.first %} active {% endif %}">
+                            <a href="{{ path('showPages', {'slug': slider.news.slug}) }}">
+                            <div class="container">
+                                {% if slider.news %}
+                                    <div class="news">
+                                        <div class="news-title">
+                                            {{ slider.news.title|raw }}
+                                        </div>
+                                        <div class="news-discr heading-text">
+                                            {{ slider.news.description|striptags|truncate(200, true, "...")|raw }}
+                                        </div>
+                                        {# <div class="news-more">
+                                            <a href="{{ path('showPages', {'slug': slider.news.slug}) }}"
+                                               class="more-text">{% trans %}ПОДРОБНЕЕ{% endtrans %}</a>
+                                            <div class="arrow-more">
+                                                <img src="{{ asset('images/arrows/news-header-arrow.svg') }}" alt="">
+                                            </div>
+                                        </div> #}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            </a>
+                            <div  class="header-bg__img" style="background-image: url({{ vich_uploader_asset(image, 'imageFile')| imagine_filter('gallery')}})"></div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        <a style="background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
+transform: rotate(180deg);" class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+           data-slide="prev">
+            <img style="margin-right: -85%; transform: rotate(180deg)" src="{{ asset('images/Subtract.svg') }}" alt="">
+            <span class="sr-only">Previous</span>
+        </a>
+        <a style="background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%);"
+           class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <img style="margin-right: -85%; transform: rotate(180deg)" src="{{ asset('images/Subtract.svg') }}" alt="">
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</header>

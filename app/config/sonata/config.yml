@@ -1,0 +1,189 @@
+services:
+  #    app.admin.user:
+  #        class: AppBundle\Admin\UserAdmin
+  #        arguments: [~, AppBundle\Entity\User, Sonata\AdminBundle\Controller\CRUDController]
+  #        tags:
+  #            - { name: sonata.admin, manager_type: orm, group: admin, label: Администраторы }
+  #        public: true
+  app.admin.menu:
+    class: AppBundle\Admin\MenuAdmin
+    arguments: [~, AppBundle\Entity\Page\Menu, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: Главное меню, label: Меню }
+    public: true
+
+  app.admin.page:
+    class: AppBundle\Admin\PageAdmin
+    arguments: [~, AppBundle\Entity\Page\Page, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: Главное меню, label: FFKR }
+    public: true
+
+  app.admin.tournament:
+    class: AppBundle\Admin\TournamentAdmin
+    arguments: [~, AppBundle\Entity\Page\Tournament, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: Главное меню, label: Турниры }
+    public: true
+
+  app.admin.team_group:
+    class: AppBundle\Admin\TeamGroupAdmin
+    arguments: [~, AppBundle\Entity\Page\TeamGroup, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: Главное меню, label: Сборные }
+    public: true
+
+  app.admin.foot_hall:
+    class: AppBundle\Admin\FootHallAdmin
+    arguments: [~, AppBundle\Entity\Page\FootHall, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: Главное меню, label: Футзал }
+    public: true
+
+  app.admin.league:
+    class: AppBundle\Admin\LeagueAdmin
+    arguments: [~, AppBundle\Entity\Page\League, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: Главное меню, label: Лиги }
+    public: true
+
+  app.admin.project:
+    class: AppBundle\Admin\ProjectAdmin
+    arguments: [~, AppBundle\Entity\Page\Project, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: Главное меню, label: Проекты }
+    public: true
+
+  app.admin.for_fans:
+    class: AppBundle\Admin\ForFansAdmin
+    arguments: [~, AppBundle\Entity\Page\ForFans, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: Главное меню, label: Для фанатов }
+    public: true
+
+  app.admin.vacancy:
+    class: AppBundle\Admin\VacancyAdmin
+    arguments: [~, AppBundle\Entity\Page\Vacancy, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: Главное меню, label: Вакансии }
+    public: true
+
+  app.admin.news:
+    class: AppBundle\Admin\NewsAdmin
+    arguments: [~, AppBundle\Entity\Page\News, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: admin, label: Новости }
+    public: true
+
+  app.admin.player:
+    class: AppBundle\Admin\PlayerAdmin
+    arguments: [~, AppBundle\Entity\Player, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: admin, label: Игроки }
+    public: true
+
+  app.admin.coach:
+    class: AppBundle\Admin\CoachAdmin
+    arguments: [~, AppBundle\Entity\Coach, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: admin, label: Тренера }
+    public: true
+
+  app.admin.team:
+    class: AppBundle\Admin\TeamAdmin
+    arguments: [~, AppBundle\Entity\Page\Team, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: admin, label: Команды }
+    public: true
+
+  app.admin.summary:
+    class: AppBundle\Admin\SummaryAdmin
+    arguments: [~, AppBundle\Entity\Summary, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: admin, label: Резюме }
+    public: true
+
+  app.admin.slider:
+    class: AppBundle\Admin\SliderAdmin
+    arguments: [~, AppBundle\Entity\Slider, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: admin, label: Slider }
+    public: true
+
+  app.admin.video:
+    class: AppBundle\Admin\VideoAdmin
+    arguments: [~, AppBundle\Entity\Page\Video, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: admin, label: Видео }
+    public: true
+
+  app.admin.gallery:
+    class: AppBundle\Admin\GalleryAdmin
+    arguments: [~, AppBundle\Entity\Gallery, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: admin, label: Gallery }
+    public: true
+
+  app.admin.future_match:
+    class: AppBundle\Admin\FutureMatchAdmin
+    arguments: [~, AppBundle\Entity\FutureMatch, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: admin, label: Предстоящие матчи }
+    public: true
+
+  app.admin.online_match:
+      class: AppBundle\Admin\OnlineMatchAdmin
+      arguments: [~, AppBundle\Entity\OnlineMatch, Sonata\AdminBundle\Controller\CRUDController]
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: admin, label: Онлайн матчи }
+      public: true
+
+  app.admin.tournament_table:
+    class: AppBundle\Admin\TournamentTableAdmin
+    arguments: [~, AppBundle\Entity\TournamentTable, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: admin, label: Турнирная таблица }
+    public: true
+
+  app.admin.club_for_tournament_table:
+    class: AppBundle\Admin\ClubForTournamentTableAdmin
+    arguments: [~, AppBundle\Entity\ClubForTournamentTable, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: admin, label: Клубы для турнирной таблицы }
+    public: true
+
+  app.admin.chief_or_partner:
+    class: AppBundle\Admin\ChiefOrPartnerAdmin
+    arguments: [~, AppBundle\Entity\ChiefOrPartner, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: admin, label: Начальство и партнеры }
+    public: true
+  app.admin.document:
+      class: AppBundle\Admin\DocumentAdmin
+      arguments: [~, AppBundle\Entity\Document, Sonata\AdminBundle\Controller\CRUDController]
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: admin, label: Документы }
+      public: true
+
+  app.admin.position_player:
+    class: AppBundle\Admin\PositionPlayerAdmin
+    arguments: [~, AppBundle\Entity\PositionPlayer, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: Типы, label: Позиции игроков }
+    public: true
+
+  app.admin.type_coach:
+    class: AppBundle\Admin\TypeCoachAdmin
+    arguments: [~, AppBundle\Entity\TypeCoach, Sonata\AdminBundle\Controller\CRUDController]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: Типы, label: Тип тренера }
+    public: true
+
+sonata_admin:
+  templates:
+    edit: SonataAdminBundle/views/CRUD/base_edit.html.twig
+    layout: '@SonataTranslation/standard_layout.html.twig'
+
+  assets:
+    extra_stylesheets:
+      - bundles/sonatatranslation/css/sonata-translation.css

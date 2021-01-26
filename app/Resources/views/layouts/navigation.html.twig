@@ -1,0 +1,71 @@
+<div class="col-xl-10 col-lg-10">
+    <div class="navigation-nav">
+        <div class="logo">
+            <a class="logo-text" href="{{ path('homepage') }}">KFU</a>
+        </div>
+        <ul class="navigation-nav__list">
+            {% for item in mine_menu %}
+                <li class="navigation-nav__item">
+                    <a href="{{ path('showMenuItems', {'slug': item.slug }) }}"
+                       class="navigation-nav__link">{{ item.title }}</a>
+
+                    {% if item.children is not empty and  not item.isVacancy and not item.isTeamGroup %}
+                        <div class="additional-nav">
+                            <div class="additional-content">
+                                <ul class="content-list">
+
+                                    {% for subMenu in item.children %}
+                                        <li class="content-item">
+                                            <a href="{{ path('showPages', {'slug': subMenu.slug}) }}"
+                                               class="content-link" >{{ subMenu.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                    {#{% if item.gallery %}#}
+                                        {#{% for gallery in item.gallery %}#}
+                                            {#<div class="pref-subsection__link">#}
+                                                {#<a href="#"#}
+                                                   {#class="content-link">#}
+                                                    {#{{ gallery.title }}#}
+                                                {#</a>#}
+                                            {#</div>#}
+                                        {#{% endfor %}#}
+                                    {#{% endif %}#}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if item.children is not empty and  item.isTeamGroup %}
+                        <div class="additional-nav__prefabricated additional-content">
+                            <div class="pref-sections ">
+                                <!-- Раздел футбол -->
+                                {% for teamGroup in item.children %}
+                                    <div class="pref-content pref-section">
+                                        <div class="pref-section">
+                                            {#<a href="{{ path('showTeams', {'slug': teamGroup.slug }) }}">{{ teamGroup.title }}</a>#}
+                                            <a href="javascript:void(0);">{{ teamGroup.title }}</a>
+                                            <img src="{{ asset('images/arrows/prefabricated-arrow.svg') }}" alt="">
+                                        </div>
+                                        <!-- Подраздел футбода -->
+                                        {% if teamGroup is instanceof('\\AppBundle\\Entity\\Page\\TeamGroup') %}
+                                            <div class="pref-subsection">
+                                                <div class="pref-sub pref-subsection">
+                                                    {% for team in teamGroup.teams %}
+                                                        <div class="pref-subsection__link">
+                                                            <a href="{{ path('showTeam', {'slug': team.slug}) }}">
+                                                                {{ team.title }}
+                                                            </a>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

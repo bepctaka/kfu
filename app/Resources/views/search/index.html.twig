@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-md-12 col-lg-2">
+        <h4 class="heading-secondary u-margin-top-medium u-margin-bottom-medium">
+            Результаты
+        </h4>
+    </div>
+</div>
+
+<input type="hidden" class="creatSummary" data-path="{{ path('creatSummary') }}">
+<button class="scroll-to-top"><img src="{{ 'images/arrows/arrow.btnTop.svg' }}" alt=""></button>
+<div class="search_page ror-block">
+    <div class="row">
+        {% for page in pages %}
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                <a class="ror-box" href="{{ path('showPage', {'slug': page.slug}) }}" data-slug="{{ page.slug }}">
+                    
+                    <div class="ror-title">
+                        {{ page.title|truncate(40, true) }}
+                    </div>
+                    <div class="ror-descr">
+                        {{ page.description|truncate(100, true)|striptags|raw  }}
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>

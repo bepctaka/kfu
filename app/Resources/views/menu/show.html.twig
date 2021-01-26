@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if menu %}
+        <section class="section-news">
+            <div class="row">
+                <div class="col-md-12 col-lg-2">
+                    <h4 class="heading-secondary u-margin-top-medium u-margin-bottom-medium">
+                        {{ menu.title }}
+                    </h4>
+                </div>
+            </div>
+            <div >
+                {% if menu.image %}
+                    <img src="{{ vich_uploader_asset(menu, 'imageFile') }}" class="full-news__img" alt="">
+                    {#                <div#}
+                    {#                        style="height: 500px;  background-image: url({{ vich_uploader_asset(page, 'imageFile') }}); background-repeat: no-repeat"#}
+                    {#                        class="news-full-photo">#}
+                    {#                </div>#}
+                {% endif %}
+            </div>
+            <div>
+                {{ menu.description | raw }}
+            </div>
+            <input type="hidden" class="creatSummary" data-path="{{ path('creatSummary') }}">
+            <button class="scroll-to-top"><img src="{{ 'images/arrows/arrow.btnTop.svg' }}" alt=""></button>
+            <div class="menu_ror ror-block">
+                <div class="row">
+                    {% for subMenu in menu.children %}
+                        <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12">
+                            <div class="ror-box">
+                                <div class="ror-img" style="background-image: url({{ vich_uploader_asset(subMenu, 'imageFile')| imagine_filter('news_thumb') }})" >
+                                    {#<div class="ror-img" {% if subMenu.image is not null %} style="background-image: url({{ vich_uploader_asset(subMenu, 'imageFile') }}); height: 200px; width: 100%" {% endif %}>#}
+                                    <div class="ror-more" id="more">
+                                        <div class="overlay"></div>
+                                        <a
+                                                href="{{ path('showPages', {'slug': subMenu.slug}) }}"
+                                                class="read  {% if subMenu is instanceof('\\AppBundle\\Entity\\Page\\Vacancy') %} vacancy_link {% endif %}"
+                                        >
+                                            {% trans %} ПОДРОБНЕЕ {% endtrans %}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ror-title heading-section-title">
+                                    <a
+                                            href="{{ path('showPages', {'slug': subMenu.slug}) }}"
+                                            data-slug="{{ subMenu.slug }}"
+                                            {% if subMenu is instanceof('\\AppBundle\\Entity\\Page\\Vacancy') %} class="vacancy_link" {% endif %}
+                                    >
+                                        {{ subMenu.title|striptags|truncate(45, true, "...")|raw }}
+                                    </a>
+                                </div>
+                                <div class="ror-descr heading-text">
+                                    {{ subMenu.description|striptags|truncate(20, true, "...")|raw }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% if menu.gallery is not empty %}
+                {% for gallery in  menu.gallery %}
+                    {% if gallery.images %}
+                        <div class="album__title">
+                            <h4>  {{ gallery.title }}</h4>
+                        </div>
+                        <div class="full-news__slider">
+                            {% for image in  gallery.images %}
+                                <div>
+                                    <a data-fancybox="full-news__gallery"
+                                       href="{{ vich_uploader_asset(image, 'imageFile') }}"
+                                    >
+                                        <img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="Post image"/>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+            {% endif %}
+        </section>
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('mine_js/vacancy.js') }}"></script>
+{% endblock %}

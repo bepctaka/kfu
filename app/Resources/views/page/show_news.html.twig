@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    <section class="section-news">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <h4 class="heading-secondary u-margin-top-medium u-margin-bottom-medium">
+                    {{ page.title }}                    
+                </h4>
+                <div class="_news_date">
+                    <span>{{ page.createdAt | format_date }}</span>
+                </div>
+            </div>
+        </div>
+        <div>
+            {% if news.notView == false %}
+
+            {% if page.image %}
+                <img src="{{ vich_uploader_asset(page, 'imageFile') }}" class="full-news__img" alt="">
+                {#                <div#}
+                {#                        style="height: 500px;  background-image: url({{ vich_uploader_asset(page, 'imageFile') }}); background-repeat: no-repeat"#}
+                {#                        class="news-full-photo">#}
+                {#                </div>#}
+            {% endif %}
+
+            {% endif %}
+            <div>
+                {{ page.description | raw }}
+            </div>
+            {% if page.document is not empty %}
+                <div class="ror-block">
+                    {% for document in page.document %}
+                    <div class="rar-hard col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12">
+                        <div class="leads-card">
+                            <div class="row" style="min-height: 50px; background-color: #f8f9fa; !important;">
+                                <div class="col-sm-10 ">
+                                    <div class="leads-card__desc">
+                                        <div class="leads-card__desc--name">{{ document.title }} </div>
+                                        <div class="leads-card__desc--position"><a
+                                                    style="
+                                                    color: #d70f15;
+                                                    text-decoration: underline;
+                                                    !important;"
+                                                    href="{{ vich_uploader_asset(document, 'imageFile') }}"> открыть
+                                            </a> </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 ">
+                                    <div class="leads-card__avatar"
+                                         style="background-image:
+                                                 url(/images/icon/{{ document.type }}.png);
+                                                 height: calc(100% - 20px);
+                                                 margin: 12px;
+                                                 min-height: calc(100% - 20px);
+                                                 background-repeat: no-repeat;
+                                                 background-size: 80%;
+                                                 background-color: #f8f9fa;
+                                                 !important;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if page.gallery is not empty %}
+                <div class="full-news__slider">
+                    {% for gallery in  page.gallery %}
+                        {% if gallery.images %}
+                            {% for image in  gallery.images %}
+                                <div>
+                                    <a data-fancybox="full-news__gallery"
+                                       href="{{ vich_uploader_asset(image, 'imageFile') }}"
+                                    >
+                                        <img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="Post image"/>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <input type="hidden" class="creatSummary" data-path="{{ path('creatSummary') }}">
+        <button class="scroll-to-top"><img src="{{ 'images/arrows/arrow.btnTop.svg' }}" alt=""></button>
+        <div class="ror-block">
+            <div class="row">
+                {% for subMenu in page.children %}
+                    <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12">
+                        <div class="ror-box">
+                            <div class="ror-img" style="background-image: url({{ vich_uploader_asset(subMenu, 'imageFile') }}); height: 200px; width: 100%" >
+                                {#<div class="ror-img" {% if subMenu.image is not null %} style="background-image: url({{ vich_uploader_asset(subMenu, 'imageFile') }}); height: 200px; width: 100%" {% endif %}>#}
+                                <div class="ror-more" id="more">
+                                    <a
+                                            href="{{ path('showPages', {'slug': subMenu.slug}) }}"
+                                            class="read  {% if subMenu is instanceof('\\AppBundle\\Entity\\Page\\Vacancy') %} vacancy_link {% endif %}"
+                                    >
+                                        {% trans %} ПОДРОБНЕЕ {% endtrans %}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ror-title heading-section-title">
+                                <a
+                                        href="{{ path('showPages', {'slug': subMenu.slug}) }}"
+                                        data-slug="{{ subMenu.slug }}"
+                                        {% if subMenu is instanceof('\\AppBundle\\Entity\\Page\\Vacancy') %} class="vacancy_link" {% endif %}
+                                >
+                                    {{ subMenu.title|striptags|truncate(40, true, "...")|raw }}
+                                </a>
+                            </div>
+                            <div class="ror-descr heading-text">
+                                {{ subMenu.description|striptags|truncate(20, true, "...")|raw }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

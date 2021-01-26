@@ -1,0 +1,193 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- /row -->
+    <section class="section-news">
+        <div class="row">
+            <div class="col-md-12 col-lg-2">
+                <h4 class="heading-secondary u-margin-top-medium u-margin-bottom-medium">
+                    {% trans %}НОВОСТИ{% endtrans %}
+                </h4>
+            </div>
+        </div>
+        <!-- BUTTON UP -->
+        <button class="scroll-to-top"><img src="{{ asset('images/arrows/arrow.btnTop.svg') }}" alt=""></button>
+
+        <div class="index-block">
+            <div class="row">
+                <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12 col-12">
+
+                    <div class="index-block__news">
+                        <div id="news_list" class="rar-hard-pip u-width-center row">
+                            {% if news %}
+                                {% for item in news|slice(0,limit) %}
+                                    <div class="rar-hard news-list col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                        <div class="news-list-article ">
+                                            <a href="{{ path('showNews', {'slug': item.slug }) }}" class="news-list-article-image" style="background-image: url({{ vich_uploader_asset(item, 'imageFile')| imagine_filter('news_thumb') }})"></a>
+                                            <div class="news-list-article-cont">
+                                                <div class="news-list-article-cont-date">
+                                                    {{ item.createdAt | format_date }}                
+                                                </div>
+                                                <a href="{{ path('showNews', {'slug': item.slug }) }}" class="news-list-article-cont-title">{{ item.title|truncate(30, true, "...")|raw }}</a>
+                                                <div class="news-list-article-cont-excerpt">{{ item.description|striptags|truncate(80, true, "...")|raw }}</div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                {% if news|length > limit %}
+                                    <div id="show_more" class="load-more">
+                                        <button data-upload-url="{{ path('newsLoadMore') }}" load-count="{{ limit+14 }}" id="btnLoadMore">{% trans %} Загрузить ещё {% endtrans %}</button>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+                    <div class="index-block__table">
+                        <div class="u-width-center row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                {% if tournamentTables %}
+                                    <div class="standings">
+                                        <div class="slick-carousel">
+                                            {% for table in  tournamentTables %}
+                                                <div class="table-soccer">
+                                                    <div class="table-title">
+                                                        {{ table.name }}:
+                                                    </div>
+                                                    <div class="team-info table-line bg-white">
+                                                        <div class="team-name">
+                                                            <span></span>
+                                                            <span class="club">{% trans %} Команды {% endtrans %}</span>
+                                                        </div>
+                                                        <div class="team-points">
+                                                            <span>{% trans %}И{% endtrans %}</span>
+                                                            <span>{% trans %}РГ{% endtrans %}</span>
+                                                            <span>{% trans %}О{% endtrans %}</span>
+                                                        </div>
+                                                    </div>
+                                                    {% for key,club in table.clubs %}
+                                                        <div class="table-line {% if key is odd %}  bg-white  {% else %} bg-gray {% endif %}">
+                                                            <div class="team-name">
+                                                                <span>{{ club.position }}</span>
+                                                                <img src="{{ vich_uploader_asset(club, 'imageFile') }}" alt="">
+                                                                <span>{{ club.name }}</span>
+                                                            </div>
+                                                            <div class="team-points">
+                                                                <span>{{ club.game }}</span>
+                                                                <span>{{ club.goalDifference }}</span>
+                                                                <span>{{ club.points }}</span>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="table-more dots-bg tournamentTable">
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="standings our-pages">
+                                    <div class="standings our-pages">
+                                        <span>{% trans %}Наши страницы{% endtrans %}:</span>
+                                        <div class="our-pages__img">
+                                            <a href="https://www.instagram.com/kfu_kg/?hl=ru"><img
+                                                        src="{{ asset('images/icon/insta-logo.png') }}" alt=""></a>
+                                            <a href="https://twitter.com/kfu_kg"><img
+                                                        src="{{ asset('images/icon/twitter-logo.png') }}" alt=""></a>
+                                            <a href="https://www.facebook.com/KyrgyzFootballUnion/"><img
+                                                        src="{{ asset('images/icon/facebook-logo.png') }}" alt=""></a>
+                                            <a href="https://www.youtube.com/channel/UC68xk5obCPDD035X2f9kVtA"><img
+                                                        src="{{ asset('images/icon/youtube-logo.png') }}" alt=""></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                {% if futureMatchesArr %}
+                                    <div class="standings">
+                                        <div class="table-title">
+                                            {% trans %}Предстоящие матчи{% endtrans %}:
+                                        </div>
+                                        <div class="slick-carousel">
+                                            {% for futureMatches in futureMatchesArr %}
+                                                <div class="table-soccer">
+                                                    {% for key, futureMatch in futureMatches %}
+                                                        <div class="table-match {% if key is odd %}  bg-white  {% else %} bg-gray {% endif %}">
+                                                            <div class="match-name">
+                                                                <span>{{ futureMatch.nameFirst }}</span>&nbsp;&nbsp;
+                                                                <img style="object-fit: cover"
+                                                                     src="{{ vich_uploader_asset(futureMatch, 'imageFile') }}"
+                                                                     alt="">
+                                                                <div class="rrr">:</div>
+                                                                <img style="object-fit: cover"
+                                                                     src="{{ vich_uploader_asset(futureMatch, 'secondImageFile') }}"
+                                                                     alt="">&nbsp;&nbsp;
+                                                                <span>{{ futureMatch.nameSecond }}</span>
+                                                            </div>
+                                                            <div class="match-addres">
+                                                                <div>{{ futureMatch.matchDate | date('d.m.Y H:i') }}</div>
+                                                                <div>{{ futureMatch.nameArena }}</div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="table-more dots-bg ">
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="all-info__block">
+            <div class="row" style="justify-content: center">
+                {% if galleries %}
+                    <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12">
+                        <div class="all-info__box">
+                            <div style="background-image: url({{ asset('images/photo/gallery.jpg') }});"
+                                 class="all-info__box-img">
+                                <div class="all-info__box-more">
+                                </div>
+                            </div>
+                            <div class="all-info__box-title">
+                                <a href="{{ path('showGalleries') }}">{% trans %}Галерея{% endtrans %}<img
+                                            src="{{ asset('images/arrows/all-arrow.svg') }}" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12">
+                    <div class="all-info__box">
+                        <div style="background-image: url({{ asset('images/photo/video.jpg') }});"
+                             class="all-info__box-img">
+                            <div class="all-info__box-morevideo">
+                                <a href="{{ path('showVideos') }}">
+                                    <img src="{{ asset('images/arrows/all-info-arrow.svg') }}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="all-info__box-title">
+                            <a href="{{ path('showVideos') }}">{% trans %}Все видео{% endtrans %}
+                                <img src="{{ asset('images/arrows/all-arrow.svg') }}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/buttonLoadMore.js') }}"></script>
+{% endblock %}

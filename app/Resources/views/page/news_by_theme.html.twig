@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- /row -->
+    <section class="section-news">
+        <div class="row">
+            <div class="col-md-12 col-lg-2">
+                <h4 class="heading-secondary u-margin-top-medium u-margin-bottom-medium">
+                    {% trans %}НОВОСТИ{% endtrans %}
+                </h4>
+            </div>
+        </div>
+        <!-- BUTTON UP -->
+        <button class="scroll-to-top"><img src="{{ asset('images/arrows/arrow.btnTop.svg') }}" alt=""></button>
+
+        <div class="index-block">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+
+                    <div class="index-block__news">
+                        <div id="news_list" class="rar-hard-pip u-width-center row">
+                            {% if news %}
+                                {% for item in news|slice(0,limit) %}
+                                    <div class="rar-hard news-list col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                                        <div class="news-list-article ">
+                                        
+                                        <a href="{{ path('showNews', {'slug': item.slug }) }}" class="news-list-article-image" style="background-image: url({{ vich_uploader_asset(item, 'imageFile')| imagine_filter('news_thumb') }})"></a>
+                                            <div class="news-list-article-cont">
+                                                <div class="news-list-article-cont-date">
+                                                    {{ item.createdAt | format_date }}                
+                                                </div>
+                                                <a href="{{ path('showNews', {'slug': item.slug }) }}" class="news-list-article-cont-title">{{ item.title|truncate(30, true, "...")|raw }}</a>
+                                                <div class="news-list-article-cont-excerpt">{{ item.description|striptags|truncate(80, true, "...")|raw }}</div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                {% if news|length > limit %}
+                                    <div id="show_more" class="load-more">
+                                        <button data-upload-url="{{ path('newsLoadMoreByTheme') }}" load-count="{{ limit+20 }}" id="btnLoadMore">{% trans %}Загрузить ещё{% endtrans %}</button>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/buttonLoadMore.js') }}"></script>
+{% endblock %}

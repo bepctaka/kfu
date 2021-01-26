@@ -1,0 +1,22 @@
+{% if news %}
+    {% for item in news|slice(0,limit) %}
+        <div class="rar-hard news-list col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+            <div class="news-list-article ">
+                <a href="{{ path('showNews', {'slug': item.slug }) }}" class="news-list-article-image" style="background-image: url({{ vich_uploader_asset(item, 'imageFile')| imagine_filter('news_thumb') }})"></a>
+                <div class="news-list-article-cont">
+                    <div class="news-list-article-cont-date">
+                        {{ item.createdAt | format_date }}                
+                    </div>
+                    <a href="{{ path('showNews', {'slug': item.slug }) }}" class="news-list-article-cont-title">{{ item.title|truncate(30, true, "...")|raw }}</a>
+                    <div class="news-list-article-cont-excerpt">{{ item.description|striptags|truncate(80, true, "...")|raw }}</div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    {% endfor %}
+    {% if news|length > limit %}
+        <div id="show_more" class="load-more">
+            <button data-upload-url="{{ path('newsLoadMoreByTheme') }}" load-count="{{ limit+15 }}" id="btnLoadMore">{% trans %} Загрузить ещё {% endtrans %}</button>
+        </div>
+    {% endif %}
+{% endif %}
